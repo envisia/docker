@@ -116,8 +116,21 @@ mkdir -p ${PG_LOG}
 chmod -R 755 ${PG_LOG}
 chown -R ${PG_USER}:${PG_USER} ${PG_LOG}
 
+if [ -z $AUTH_FILE ]; then
+   echo "no auth file present"
+else
+   chown ${PG_USER}:${PG_USER} ${AUTH_FILE}
+fi
+
+if [ -z $AUTH_HBA_FILE; then
+   echo "no auth hba file present"
+else
+   chown ${PG_USER}:${PG_USER} ${AUTH_HBA_FILE}
+fi
+
 if [ -z $QUIET ]; then
   cat ${PG_CONFIG_DIR}/pgbouncer.ini
+  echo "\n"
 fi
 echo "Starting pgbouncer..."
 exec /pgbouncer/bin/pgbouncer ${QUIET:+-q} -u ${PG_USER} ${PG_CONFIG_DIR}/pgbouncer.ini
