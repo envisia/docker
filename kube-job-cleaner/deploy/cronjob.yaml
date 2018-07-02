@@ -15,10 +15,11 @@ spec:
             application: kube-job-cleaner
             version: "0.1"
         spec:
+          serviceAccountName: job-cleaner
           restartPolicy: OnFailure
           containers:
           - name: cleaner
-            image: "hjacobs/kube-job-cleaner"
+            image: "envisia/kube-job-cleaner"
             resources:
               limits:
                 cpu: 200m
