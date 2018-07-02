@@ -2,11 +2,12 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: kube-job-cleaner
+  namespace: kube-job-cleaner
   labels:
     application: kube-job-cleaner
     version: "0.1"
 spec:
-  schedule: "17 * * * *"
+  schedule: "0 3 * * *"
   jobTemplate:
     spec:
       template:
@@ -19,7 +20,8 @@ spec:
           restartPolicy: OnFailure
           containers:
           - name: cleaner
-            image: "envisia/kube-job-cleaner"
+            image: envisia/kube-job-cleaner:latest
+            imagePullPolicy: Always
             resources:
               limits:
                 cpu: 200m
