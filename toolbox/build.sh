@@ -1,4 +1,4 @@
 #!/bin/sh
 
-docker build -t docker.envisia.io/envisia/toolbox:$1 .
-docker push docker.envisia.io/envisia/toolbox:$1
+docker build -t envisia/toolbox:$1 .
+docker push envisia/toolbox:$1
