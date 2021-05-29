@@ -1,8 +1,8 @@
-FROM centos:8
+FROM ubuntu:focal
 
-RUN dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm && \
-    dnf -qy module disable postgresql && \
-    dnf install -y curl postgresql12 && \
-    dnf clean all && \
-    rm -rf /var/cache/yum
-
+RUN apt update && apt install -y wget curl gnupg2 && \
+    sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt focal-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && \
+    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+    apt update && \
+    apt install -y postgresql-client && \
+    rm -rf /var/lib/apt/lists/*
